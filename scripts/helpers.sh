@@ -28,13 +28,12 @@ all_tmux_processes() {
   # 2) `tmux a` (which shows an additional process)
 
   ps -u $UID -o "command pid uid" |\
-    grep -E '^tmux' |\
-    grep -vE '^tmux\s+(a|source)'
+    grep -E '^tmux'
 }
 
 number_tmux_processes_except_current_server() {
 	all_tmux_processes |
-		\grep -v " $(current_tmux_server_pid)$" |
+		\grep -v " $(current_tmux_server_pid) " |
 		wc -l |
 		sed "s/ //g"
 }
